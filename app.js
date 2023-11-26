@@ -1,95 +1,40 @@
-document.addEventListener("DOMContentLoaded", async function () {
-  try {
-    // Rest ülkeleri API'sine bir istek yap
-    const response = await fetch("https://restcountries.com/v3.1/all");
-    const countries = await response.json();
+const userDiv = document.getElementById("user");
+const rastgeleBtn = document.getElementById("rastgele");
 
-    // Her ülkeyi adı ve verileriyle eşleştiren bir dizi oluştur
-    const countryData = countries.map((country) => {
-      return {
-        name: country.name.common,
-        data: country,
-      };
-    });
+rastgeleBtn.addEventListener("click", (e) => {
+  console.log(e.target);
 
-    // Sayfa açıldığında rastgele bir ülke seç ve bilgilerini göster
-    const randomCountry =
-      countryData[Math.floor(Math.random() * countryData.length)];
-    displayCountryInfo(randomCountry.data);
+  fetch("https://randomuser.me/api/")
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Hata: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      show(data);
+    })
+    .catch((err) => showError(err));
 
-    // Arama kutusuna her girişte çalışacak olan olay dinleyicisi
-    const searchInput = document.getElementById("search");
-    const searchDiv = document.getElementById("searchDiv");
+  const show = (users) => {
+    console.log(users);
+    // console.log(user.results[0].location.country);
+    console.log(users.results[0]);
 
-    searchInput.addEventListener("input", function () {
-      // Arama kutusuna girilen değeri küçük harfe çevir
-      const inputValue = searchInput.value.toLowerCase();
-      // Girişe uyan ülkeleri filtrele
-      const matchingCountries = countryData.filter((country) =>
-        country.name.toLowerCase().includes(inputValue)
-      );
-
-      // Arama sonuçlarını gösteren div'i temizle
-      searchDiv.innerHTML = "";
-
-      // Her bir eşleşen ülkeyi gösteren bir div oluştur
-      matchingCountries.forEach((country) => {
-        const countryDiv = document.createElement("span");
-        countryDiv.textContent = country.name;
-        countryDiv.classList.add("list");
-
-        // Ülkeye tıklanınca bu ülkenin bilgilerini göster ve arama sonuçlarını temizle
-        countryDiv.addEventListener("click", function () {
-          displayCountryInfo(country.data);
-          searchDiv.innerHTML = "";
-          searchInput.value = ""
-        });
-
-        // Div'i arama sonuçlarına ekle
-        searchDiv.appendChild(countryDiv);
-      });
-    });
-  } catch (error) {
-    // Hata durumunda konsola hata mesajını yazdır
-    console.error("Veri alınırken hata oluştu:", error);
-  }
+    userDiv.innerHTML = `
+    
+    <img src="${users.results[0].picture.large}" width="200px" class="rounded-circle" alt=""/>
+    <h2>${users.results[0].name.title} ${users.results[0].name.first} ${users.results[0].name.last}</h2>
+        <p class="fs-3">${users.results[0].location.country}</p>
+     <p class="fs-5">${users.results[0].email}</p>
+     <p class="fs-6">${users.results[0].phone}</p>
+    `;
+  };
 });
 
-// Seçilen ülkenin bilgilerini gösteren fonksiyon
-function displayCountryInfo(countryInfo) {
-  // Bayrak resmini göster
-  document.getElementById("image").src = countryInfo.flags.png;
-
-  // Ülke adını göster
-  document.getElementById("name").textContent = countryInfo.name.common;
-
-  // Bölge bilgisini göster
-  document.getElementById("region").textContent = countryInfo.region;
-
-  // Başkent bilgisini göster
-  document.getElementById("capital").textContent = countryInfo.capital;
-
-  // Dil bilgisini göster
-  document.getElementById("langueage").textContent = Object.values(
-    countryInfo.languages
-  ).join(", ");
-
-  // Para birimi bilgisini göster
-  document.getElementById("money").textContent = Object.values(
-    countryInfo.currencies
-  )
-    .map((currencies) => `${currencies.name}, ${currencies.symbol} `)
-    .join(", ");
-
-  // Nüfus bilgisini göster
-  document.getElementById("population").textContent =
-    countryInfo.population.toLocaleString();
-
-  // Sınırlar bilgisini göster
-  document.getElementById("border").textContent = countryInfo.borders
-    ? countryInfo.borders.join(", ")
-    : "Yok";
-
-  // Google Haritalar linkini oluştur ve bağlantıyı güncelle
-  document.getElementById("map").href = countryInfo.maps.googleMaps;
-}
+const showError = (err) => {
+  const userDiv = document.getElementById("user");
+  userDiv.innerHTML = `<h1>${err}</h1>
+    <img src="./img/404.png" alt="" />
+    `;
+};
