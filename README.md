@@ -15,15 +15,43 @@ This project is a simple web application that displays random user data using [R
 - JavaScript
 - Bootstrap
 
+
+
+
+
+
 # Random User Data Display
 
 Bu proje, [Random User Generator API](https://randomuser.me/) kullanarak rastgele kullanıcı verilerini gösteren basit bir web uygulamasıdır. HTML, CSS ve JavaScript kullanılarak geliştirilmiştir ve kullanıcıların rastgele bir profil görmelerini sağlar.
 
 ## Özellikler
 
+- Rastgele kullanıcı bilgilerini almak için bir buton.
+- Kullanıcı bilgileri: profil fotoğrafı, ad, ülke, e-posta ve telefon numarası.
+- Hata durumunda kullanıcıya hata mesajı ve bir 404 görseli gösterilir.
+
 - **Rastgele Kullanıcı Profil Verileri**: API'den rastgele kullanıcı bilgileri alır ve ekrana getirir.
 - **Kullanıcı Verileri**: Kullanıcı adı, ülke, e-posta ve telefon numarası bilgilerini gösterir.
 - **Responsive Tasarım**: Bootstrap kullanılarak duyarlı bir tasarım sağlanmıştır.
+
+## Kullanılan Teknolojiler
+
+- **HTML**: Sayfanın yapısını oluşturur.
+- **CSS**: Bootstrap ile sayfanın stilini ve düzenini belirler.
+- **JavaScript**: Kullanıcı verilerini çekmek ve ekranda göstermek için kullanılır.
+- **Bootstrap**: Sayfa düzeni ve stil için kullanılır.
+- **Fetch API**: API'den veri almak için kullanılır.
+
+
+
+
+# Random User Data Display
+
+
+
+## Özellikler
+
+
 
 ## Teknolojiler
 
