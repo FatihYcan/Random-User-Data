@@ -31,3 +31,7 @@ Bu proje, [Random User Generator API](https://randomuser.me/) kullanarak rastgel
 - CSS
 - JavaScript
 - Bootstrap
+
+https://github.com/user-attachments/assets/75b800e2-a28c-4b9b-845b-7822136bf508
+
+[Canlı Demo'yu Deneyin](https://fatihycan.github.io/Random-User-Data/)
